@@ -1,11 +1,8 @@
-FROM python:3.10-alpine
-
-COPY requirements /requirements
-RUN pip install --no-cache-dir -r /requirements/backend.in
-
-COPY . /app
+FROM python:3.10-buster
 WORKDIR /app
-
-RUN pip install --no-cache-dir -r /requirements/backend.in
-
-CMD ["python", "main.py"]
+COPY requirements/backend.in /app/requirements/backend.in
+RUN pip install --no-cache-dir -r /app/requirements/backend.in
+COPY spaceship /app/spaceship
+COPY build /app/build
+EXPOSE 8000
+CMD ["python", "/app/spaceship/main.py"]
